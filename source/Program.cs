@@ -9,7 +9,7 @@ namespace Move_It
 {
     class Program
     {
-        private static string v = "v1.0";
+        private static string v = "v1.1";
         static void Main(string[] args)
         {
             MainAsync(args).ConfigureAwait(false).GetAwaiter().GetResult();

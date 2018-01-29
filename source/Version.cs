@@ -15,7 +15,7 @@ namespace Move_It
         public static void Check(string v, ReadyEventArgs e)
         {
             WebClient n = new WebClient();
-            var json = n.DownloadString("http://apis.creeperman007.tk/request-yt/v1/");
+            var json = n.DownloadString("http://apis.creeperman007.tk/move_it/v1/");
             string valueOriginal = Convert.ToString(json);
             JObject data = JObject.Parse(valueOriginal);
             string version = Convert.ToString(data["latestVersion"]);
