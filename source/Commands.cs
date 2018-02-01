@@ -19,28 +19,30 @@ namespace Move_It
             {
                 try
                 {
-                    await ctx.Guild.CreateChannelAsync("TempMove", ChannelType.Voice);
                     await Task.Delay(300);
-                    DiscordChannel chnlTemp = ReturnTemp(ctx);
+                    DiscordChannel category = Category.ReturnCategory(ctx, type, categories);
                     await Task.Delay(300);
-                    foreach (DiscordMember usr in ctx.Guild.Members)
+                    List<DiscordChannel> channels = new List<DiscordChannel>();
+                    foreach (DiscordChannel chnl in ctx.Guild.Channels)
                     {
                         try
                         {
-                            if (usr.VoiceState.Channel.ParentId == categories[type].id)
-                                await usr.PlaceInAsync(chnlTemp);
+                            if (chnl.ParentId == categories[type].id)
+                                channels.Add(chnl);
                         }
-                        catch {}
-                        await Task.Delay(200);
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
+                        }
                     }
+                    Category.DeleteChannels(ctx, type, categories);
+                    Category.CreateChannels(ctx, channels, category);
                     await Task.Delay(300);
-                    await ctx.Guild.GetChannel(chnlTemp.Id).DeleteAsync();
                     await ctx.RespondAsync("Successfully moved users from " + categories[type].name);
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e);
-                    await ctx.Guild.GetChannel(ReturnTemp(ctx).Id).DeleteAsync();
                 }
             }
         }
@@ -60,16 +62,6 @@ namespace Move_It
                 list += "```";
                 await ctx.RespondAsync(list);
             }
-        }
-
-        public DiscordChannel ReturnTemp(CommandContext ctx)
-        {
-            foreach (DiscordChannel chnl in ctx.Guild.Channels)
-            {
-                if (chnl.Name == "TempMove")
-                    return chnl;
-            }
-            return null;
         }
     }
 }
