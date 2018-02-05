@@ -47,7 +47,7 @@ namespace Move_It
                 {
                     try
                     {
-                        if (chnl.ParentId == categories[type].id)
+                        if (chnl.ParentId == categories[type].id && chnl.Type == ChannelType.Voice)
                             chnl.DeleteAsync();
                     }
                     catch (Exception e)

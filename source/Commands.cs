@@ -27,7 +27,7 @@ namespace Move_It
                     {
                         try
                         {
-                            if (chnl.ParentId == categories[type].id)
+                            if (chnl.ParentId == categories[type].id && chnl.Type == ChannelType.Voice)
                                 channels.Add(chnl);
                         }
                         catch (Exception e)
@@ -38,7 +38,7 @@ namespace Move_It
                     Category.DeleteChannels(ctx, type, categories);
                     Category.CreateChannels(ctx, channels, category);
                     await Task.Delay(300);
-                    await ctx.RespondAsync("Successfully moved users from " + categories[type].name);
+                    await ctx.RespondAsync("Successfully removed users from " + categories[type].name);
                 }
                 catch (Exception e)
                 {
