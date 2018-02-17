@@ -13,7 +13,8 @@ namespace Move_It
         private List<Category> categories = Category.Categories();
 
         [Command("move")]
-        public async Task Move(CommandContext ctx, int type)
+        [Description("Moves users from voice channel in specified category")]
+        public async Task Move(CommandContext ctx, [Description("Number of category to clean. Number can be retrieved from /list")] int type)
         {
             if (ctx.Member.Id == 228248704379912192)
             {
@@ -48,6 +49,7 @@ namespace Move_It
         }
 
         [Command("list")]
+        [Description("Lists all available categories")]
         public async Task List(CommandContext ctx)
         {
             if (ctx.Member.Id == 228248704379912192)
@@ -61,6 +63,24 @@ namespace Move_It
                 }
                 list += "```";
                 await ctx.RespondAsync(list);
+            }
+        }
+        [Command("reload")]
+        [Description("Reloads list of categories")]
+        public async Task Reload(CommandContext ctx)
+        {
+            if (ctx.Member.Id == 228248704379912192)
+            {
+                try
+                {
+                    categories = Category.Categories();
+                    await ctx.RespondAsync("Successfully reloaded list");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+
             }
         }
     }
