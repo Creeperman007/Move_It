@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Move_It")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Creeperman007")]
 [assembly: AssemblyProduct("Move_It")]
-[assembly: AssemblyCopyright("Copyright ©  2018")]
+[assembly: AssemblyCopyright("Copyright © 2018, Creeperman007")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // Následující GUID se používá pro ID knihovny typů, pokud je tento projekt vystavený pro COM.
-[assembly: Guid("f4d51387-b320-4caf-9937-92e5aa6125a4")]
+[assembly: Guid("412ea6af-53eb-4221-aa9d-3a5acdca57de")]
 
 // Informace o verzi sestavení se skládá z těchto čtyř hodnot:
 //
