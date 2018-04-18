@@ -52,11 +52,11 @@ namespace Move_It
         {
             if (this.BotThread == null)
             {
+                credentials = new Credentials("config.json");
                 this.SetProperty(xf => xf.Text, "Move It");
-                this.Bot = new Bot("MzAxODMzNjMxNDY1MzQwOTI4.DbOwbg.Vr7VlYY96VfBkTF20TN_lcjbQC8");
+                this.Bot = new Bot(credentials.Token);
                 this.TokenSource = new CancellationTokenSource();
                 this.BotThread = Task.Run(this.BotThreadCallback);
-                credentials = new Credentials("config.json");
             }
             Thread.Sleep(400);
             LogMessage(LogLevel.Debug, "Start of log", false);
@@ -104,8 +104,8 @@ namespace Move_It
             }
             else if (e.Key == Keys.L)
             {
-                var guild = Bot.Client.GetGuildAsync(405387873076903956).Result;
-                var user = guild.GetMemberAsync(165212945205166081).Result;
+                var guild = Bot.Client.GetGuildAsync(credentials.Guild).Result;
+                var user = guild.GetMemberAsync(credentials.User).Result;
                 if (user.VoiceState != null)
                 {
                     ulong category_id = user.VoiceState.Channel.Parent.Id;
@@ -172,7 +172,7 @@ namespace Move_It
             {
                 SendKeys.Send("%{TAB}");
                 InputForm.Hide();
-                var user = Bot.Client.GetGuildAsync(405387873076903956).Result.GetMemberAsync(165212945205166081).Result;
+                var user = Bot.Client.GetGuildAsync(credentials.Guild).Result.GetMemberAsync(credentials.User).Result;
                 if (user.VoiceState != null)
                 {
                     await user.PlaceInAsync(SelectChannel(tb_num.Text, user.VoiceState.Channel.Parent.Id));
@@ -193,7 +193,7 @@ namespace Move_It
         
         private DiscordChannel SelectChannel(string text, ulong category)
         {
-            var guild = Bot.Client.GetGuildAsync(405387873076903956).Result;
+            var guild = Bot.Client.GetGuildAsync(credentials.Guild).Result;
             foreach (DiscordChannel chnl in guild.Channels)
             {
                 if (chnl.Type == ChannelType.Voice && Regex.Match(chnl.Name.ToLower(), @"\d+").Value == text && chnl.Parent.Id == category)
